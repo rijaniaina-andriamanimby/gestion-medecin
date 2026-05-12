@@ -4,12 +4,16 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Analytics
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
@@ -21,6 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.medecinapp.model.Medecin
 import com.example.medecinapp.viewmodel.MedecinViewModel
+import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.AttachMoney
 
 @Composable
 fun MedecinScreen(
@@ -299,10 +307,10 @@ fun MedecinScreen(
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
 
-                        shape = MaterialTheme.shapes.large,
+                        shape = RoundedCornerShape(24.dp),
 
                         elevation = CardDefaults.cardElevation(
-                            defaultElevation = 6.dp
+                            defaultElevation = 8.dp
                         ),
 
                         colors = CardDefaults.cardColors(
@@ -314,18 +322,160 @@ fun MedecinScreen(
                             modifier = Modifier.padding(16.dp)
                         ) {
 
-                            Text(
-                                text = "Statistiques",
-                                style = MaterialTheme.typography.titleLarge
-                            )
+                            // HEADER
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
 
-                            Spacer(modifier = Modifier.height(10.dp))
+                                Icon(
+                                    imageVector = Icons.Default.Analytics,
+                                    contentDescription = null,
+                                    tint = Color(0xFF2563EB)
+                                )
 
-                            Text("Prestation minimale : ${stats.min}")
+                                Spacer(modifier = Modifier.width(10.dp))
 
-                            Text("Prestation maximale : ${stats.max}")
+                                Column {
 
-                            Text("Prestation totale : ${stats.total}")
+                                    Text(
+                                        text = "Préstations",
+                                        style = MaterialTheme.typography.titleLarge,
+                                        color = Color(0xFF0F172A)
+                                    )
+
+//                                    Text(
+//                                        text = "Analyse des prestations",
+//                                        style = MaterialTheme.typography.bodySmall,
+//                                        color = Color.Gray
+//                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(20.dp))
+
+                            // PRESTATION MIN
+                            Card(
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color(0xFFDBEAFE)
+                                )
+                            ) {
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(14.dp),
+
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowDownward,
+                                        contentDescription = null,
+                                        tint = Color(0xFF2563EB)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(12.dp))
+
+                                    Column {
+
+                                        Text(
+                                            text = "Minimale",
+                                            color = Color.Gray,
+                                            style = MaterialTheme.typography.bodySmall
+                                        )
+
+                                        Text(
+                                            text = "${stats.min} Ar",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            color = Color(0xFF1E3A8A)
+                                        )
+                                    }
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            // PRESTATION MAX
+                            Card(
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color(0xFFDCFCE7)
+                                )
+                            ) {
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(14.dp),
+
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowUpward,
+                                        contentDescription = null,
+                                        tint = Color(0xFF10B981)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(12.dp))
+
+                                    Column {
+
+                                        Text(
+                                            text = "Maximale",
+                                            color = Color.Gray,
+                                            style = MaterialTheme.typography.bodySmall
+                                        )
+
+                                        Text(
+                                            text = "${stats.max} Ar",
+                                            style = MaterialTheme.typography.titleMedium,
+                                            color = Color(0xFF065F46)
+                                        )
+                                    }
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            // TOTAL
+                            Card(
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color(0xFFFEF3C7)
+                                )
+                            ) {
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(14.dp),
+
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+
+                                    Icon(
+                                        imageVector = Icons.Default.AttachMoney,
+                                        contentDescription = null,
+                                        tint = Color(0xFFF59E0B)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(12.dp))
+
+                                    Column {
+
+                                        Text(
+                                            text = "Totale",
+                                            color = Color.Gray,
+                                            style = MaterialTheme.typography.bodySmall
+                                        )
+
+                                        Text(
+                                            text = "${stats.total} Ar",
+                                            style = MaterialTheme.typography.titleLarge,
+                                            color = Color(0xFFB45309)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
 

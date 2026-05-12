@@ -67,6 +67,9 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
-    // Histogramme
+    // Histogram
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // Material icons
+    implementation("androidx.compose.material:material-icons-extended")
 }
