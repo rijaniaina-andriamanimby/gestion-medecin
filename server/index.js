@@ -19,7 +19,16 @@ app.post('/medecins', async (req, res) => {
   res.json(result.rows[0]);
 });
 
-// Lire prestation
+// Lire prestation et liste des medecin
+app.get('/medecins/:id', async (req, res) => {
+  const id = req.params.id
+  const result = await pool.query(`
+    SELECT *, (nombre_jour * taux_journalier) AS prestation
+    FROM medecin WHERE numMed = ${id}
+  `);
+  res.json(result.rows);
+});
+
 app.get('/medecins', async (req, res) => {
   const result = await pool.query(`
     SELECT *, (nombre_jour * taux_journalier) AS prestation
@@ -33,12 +42,12 @@ app.put('/medecins/:id', async (req, res) => {
   const { id } = req.params;
   const { nom, nombre_jour, taux_journalier } = req.body;
 
-  await pool.query(
-    'UPDATE medecin SET nom=$1, nombre_jour=$2, taux_journalier=$3 WHERE numMed=$4',
+  const result = await pool.query(
+    'UPDATE medecin SET nom=$1, nombre_jour=$2, taux_journalier=$3 WHERE numMed=$4 RETURNING *',
     [nom, nombre_jour, taux_journalier, id]
   );
 
-  res.send("Updated");
+  res.json(result.rows);
 });
 
 // Suppression
