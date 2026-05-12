@@ -1,0 +1,157 @@
+package com.example.medecinapp.ui
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.medecinapp.model.Medecin
+import com.example.medecinapp.viewmodel.MedecinViewModel
+
+@Composable
+fun MedecinScreen(
+    vm: MedecinViewModel = viewModel()
+) {
+
+    // Etat du dialog
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+
+    // Médecin sélectionné
+    var selectedMedecin by remember {
+        mutableStateOf<Medecin?>(null)
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+
+        // Bouton Ajouter
+        Button(
+            onClick = {
+
+                selectedMedecin = null
+                showDialog = true
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+            Text("Ajouter Médecin")
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Liste des médecins
+        LazyColumn {
+
+            items(vm.medecins) { medecin ->
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp)
+                ) {
+
+                    Column(
+                        modifier = Modifier.padding(12.dp)
+                    ) {
+
+                        Text(
+                            text = "Nom : ${medecin.nom}",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text(
+                            text = "Nombre Jour : ${medecin.nombre_jour}"
+                        )
+
+                        Text(
+                            text = "Taux Journalier : ${medecin.taux_journalier}"
+                        )
+
+                        Text(
+                            text = "Prestation : ${medecin.prestation}"
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+
+                            // Bouton Modifier
+                            Button(
+                                onClick = {
+
+                                    selectedMedecin = medecin
+                                    showDialog = true
+                                }
+                            ) {
+
+                                Text("Modifier")
+                            }
+
+                            // Bouton Supprimer
+                            Button(
+                                onClick = {
+
+                                    medecin.nummed?.let {
+
+                                        vm.deleteMedecin(it)
+                                    }
+                                }
+                            ) {
+
+                                Text("Supprimer")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Dialog Ajouter / Modifier
+    if (showDialog) {
+
+        AddEditDialog(
+
+            medecin = selectedMedecin,
+
+            onDismiss = {
+
+                showDialog = false
+            },
+
+            onConfirm = { medecin ->
+
+                // AJOUT
+                if (selectedMedecin == null) {
+
+                    vm.addMedecin(medecin)
+
+                } else {
+
+                    // MODIFICATION
+                    medecin.nummed?.let {
+
+                        vm.updateMedecin(
+                            it,
+                            medecin
+                        )
+                    }
+                }
+
+                showDialog = false
+            }
+        )
+    }
+}
