@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.PieChart
+import androidx.compose.material.icons.filled.TrendingUp
 
 @Composable
 fun MedecinScreen(
@@ -191,7 +192,7 @@ fun MedecinScreen(
                                 ) {
 
                                     Icon(
-                                        imageVector = Icons.Default.Star,
+                                        imageVector = Icons.Default.TrendingUp,
                                         contentDescription = null,
                                         tint = Color(0xFFF59E0B)
                                     )

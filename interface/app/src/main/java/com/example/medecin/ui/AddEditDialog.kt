@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,61 +30,86 @@ fun AddEditDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
 
+        containerColor = Color(0xFFF8FAFC),
+
         title = {
-            Text(
-                if (medecin == null) "Ajouter Médecin"
-                else "Modifier Médecin"
-            )
+
+            Column {
+
+                Text(
+                    text = if (medecin == null)
+                        "Ajouter un Médecin"
+                    else
+                        "Modifier Médecin",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = Color(0xFF0F172A)
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "Informations personnelles et tarifaires",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray
+                )
+            }
         },
 
         text = {
 
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(14.dp)
+            ) {
 
-                // NOM
-                OutlinedTextField(
-                    value = nom,
-                    onValueChange = { nom = it },
-                    label = { Text("Nom") },
-                    leadingIcon = {
-                        Icon(Icons.Default.Person, contentDescription = null)
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                        autoCorrect = false
-                    )
-                )
+                // CARD FORM
+                Card(
+                    shape = MaterialTheme.shapes.large,
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
 
-                // NOMBRE JOUR
-                OutlinedTextField(
-                    value = nombreJour,
-                    onValueChange = { nombreJour = it },
-                    label = { Text("Nombre de jour") },
-                    leadingIcon = {
-                        Icon(Icons.Default.DateRange, contentDescription = null)
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                        autoCorrect = false
-                    )
-                )
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp)
+                    ) {
 
-                // TAUX JOURNALIER
-                OutlinedTextField(
-                    value = tauxJournalier,
-                    onValueChange = { tauxJournalier = it },
-                    label = { Text("Taux journalier") },
-                    leadingIcon = {
-                        Icon(Icons.Default.Star, contentDescription = null)
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                        autoCorrect = false
-                    )
-                )
+                        // NOM
+                        OutlinedTextField(
+                            value = nom,
+                            onValueChange = { nom = it },
+                            label = { Text("Nom du médecin") },
+                            leadingIcon = {
+                                Icon(Icons.Default.Person, null, tint = Color(0xFF2563EB))
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = MaterialTheme.shapes.medium
+                        )
+
+                        // NOMBRE JOUR
+                        OutlinedTextField(
+                            value = nombreJour,
+                            onValueChange = { nombreJour = it },
+                            label = { Text("Nombre de jours") },
+                            leadingIcon = {
+                                Icon(Icons.Default.DateRange, null, tint = Color(0xFF10B981))
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = MaterialTheme.shapes.medium
+                        )
+
+                        // TAUX
+                        OutlinedTextField(
+                            value = tauxJournalier,
+                            onValueChange = { tauxJournalier = it },
+                            label = { Text("Taux journalier (Ar)") },
+                            leadingIcon = {
+                                Icon(Icons.Default.TrendingUp, null, tint = Color(0xFFF59E0B))
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = MaterialTheme.shapes.medium
+                        )
+                    }
+                }
             }
         },
 
@@ -106,9 +132,9 @@ fun AddEditDialog(
                 )
             ) {
 
-                Icon(Icons.Default.Check, contentDescription = null)
+                Icon(Icons.Default.Check, null)
                 Spacer(modifier = Modifier.width(6.dp))
-                Text(if (medecin == null) "Ajouter" else "Modifier")
+                Text(if (medecin == null) "Enregistrer" else "Modifier")
             }
         },
 
@@ -116,7 +142,7 @@ fun AddEditDialog(
 
             OutlinedButton(onClick = onDismiss) {
 
-                Icon(Icons.Default.Close, contentDescription = null)
+                Icon(Icons.Default.Close, null)
                 Spacer(modifier = Modifier.width(6.dp))
                 Text("Annuler")
             }
