@@ -4,9 +4,14 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -43,10 +48,20 @@ fun MedecinScreen(
                 selectedMedecin = null
                 showDialog = true
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF10B981)
+            )
         ) {
 
-            Text("Ajouter Médecin")
+            Icon(
+                imageVector = Icons.Default.AddCircle,
+                contentDescription = "Ajouter"
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Text("Ajouter un Médecin")
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -98,8 +113,18 @@ fun MedecinScreen(
 
                                     selectedMedecin = medecin
                                     showDialog = true
-                                }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color.Blue
+                                )
                             ) {
+
+                                Icon(
+                                    imageVector = Icons.Default.Edit,
+                                    contentDescription = "Modifier"
+                                )
+
+                                Spacer(modifier = Modifier.width(6.dp))
 
                                 Text("Modifier")
                             }
@@ -118,8 +143,18 @@ fun MedecinScreen(
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
-                                }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color.Red
+                                )
                             ) {
+
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Supprimer"
+                                )
+
+                                Spacer(modifier = Modifier.width(6.dp))
 
                                 Text("Supprimer")
                             }
