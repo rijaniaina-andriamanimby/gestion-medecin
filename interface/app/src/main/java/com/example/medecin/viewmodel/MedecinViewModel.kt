@@ -12,9 +12,11 @@ class MedecinViewModel : ViewModel() {
     private val repository = MedecinRepository()
 
     var medecins = mutableStateListOf<Medecin>()
+    var stats by mutableStateOf<Stats?>(null)
 
     init {
         loadMedecins()
+        loadStats()
     }
 
     fun loadMedecins() {
@@ -28,6 +30,7 @@ class MedecinViewModel : ViewModel() {
         viewModelScope.launch {
             repository.add(medecin)
             loadMedecins()
+            loadStats()
         }
     }
 
@@ -35,6 +38,7 @@ class MedecinViewModel : ViewModel() {
         viewModelScope.launch {
             repository.update(id, medecin)
             loadMedecins()
+            loadStats()
         }
     }
 
@@ -42,6 +46,13 @@ class MedecinViewModel : ViewModel() {
         viewModelScope.launch {
             repository.delete(id)
             loadMedecins()
+            loadStats()
+        }
+    }
+
+    fun loadStats() {
+        viewModelScope.launch {
+            stats = repository.getStats()
         }
     }
 }

@@ -16,4 +16,7 @@ class MedecinRepository {
 
     suspend fun delete(id: Int) =
         RetrofitClient.api.deleteMedecin(id)
+
+    suspend fun getStats() =
+        RetrofitClient.api.getStats()
 }

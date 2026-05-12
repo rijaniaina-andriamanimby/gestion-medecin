@@ -47,9 +47,10 @@ fun MedecinScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Liste des médecins
+        // Liste + statistiques
         LazyColumn {
 
+            // Liste des médecins
             items(vm.medecins) { medecin ->
 
                 Card(
@@ -87,7 +88,7 @@ fun MedecinScreen(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
 
-                            // Bouton Modifier
+                            // Modifier
                             Button(
                                 onClick = {
 
@@ -99,7 +100,7 @@ fun MedecinScreen(
                                 Text("Modifier")
                             }
 
-                            // Bouton Supprimer
+                            // Supprimer
                             Button(
                                 onClick = {
 
@@ -114,6 +115,62 @@ fun MedecinScreen(
                             }
                         }
                     }
+                }
+            }
+
+            // SECTION STATISTIQUES
+            item {
+
+                vm.stats?.let { stats ->
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+
+                            Text(
+                                text = "Statistiques",
+                                style = MaterialTheme.typography.titleLarge
+                            )
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            Text("Prestation minimale : ${stats.min}")
+
+                            Text("Prestation maximale : ${stats.max}")
+
+                            Text("Prestation totale : ${stats.total}")
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = "Histogramme",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    BarChartView(stats)
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = "Camembert",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    PieChartView(stats)
+
+                    Spacer(modifier = Modifier.height(30.dp))
                 }
             }
         }

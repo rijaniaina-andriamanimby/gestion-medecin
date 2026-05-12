@@ -14,6 +14,8 @@ interface ApiService {
         @Body medecin: Medecin
     ): Response<Medecin>
 
+    @GET("stats")
+    suspend fun getStats(): Stats
     @PUT("medecins/{id}")
     suspend fun updateMedecin(
         @Path("id") id: Int,
