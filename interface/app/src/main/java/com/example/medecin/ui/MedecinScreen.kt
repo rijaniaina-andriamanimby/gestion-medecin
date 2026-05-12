@@ -1,11 +1,13 @@
 package com.example.medecinapp.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.medecinapp.model.Medecin
@@ -16,6 +18,8 @@ fun MedecinScreen(
     vm: MedecinViewModel = viewModel()
 ) {
 
+    val context = LocalContext.current
+    
     // Etat du dialog
     var showDialog by remember {
         mutableStateOf(false)
@@ -107,6 +111,12 @@ fun MedecinScreen(
                                     medecin.nummed?.let {
 
                                         vm.deleteMedecin(it)
+
+                                        Toast.makeText(
+                                            context,
+                                            "Médecin supprimé avec succès",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                             ) {
@@ -195,6 +205,12 @@ fun MedecinScreen(
 
                     vm.addMedecin(medecin)
 
+                    Toast.makeText(
+                        context,
+                        "Médecin ajouté avec succès",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                 } else {
 
                     // MODIFICATION
@@ -204,6 +220,12 @@ fun MedecinScreen(
                             it,
                             medecin
                         )
+
+                        Toast.makeText(
+                            context,
+                            "Médecin modifié avec succès",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 

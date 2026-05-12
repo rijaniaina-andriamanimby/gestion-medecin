@@ -10,6 +10,8 @@ import com.example.medecinapp.model.Medecin
 import com.example.medecinapp.model.Stats
 import com.example.medecinapp.repository.MedecinRepository
 import kotlinx.coroutines.launch
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 
 class MedecinViewModel : ViewModel() {
 
