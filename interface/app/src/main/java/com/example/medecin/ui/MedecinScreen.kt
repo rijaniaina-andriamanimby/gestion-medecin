@@ -12,8 +12,6 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
@@ -29,6 +27,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.PieChart
 
 @Composable
 fun MedecinScreen(
@@ -481,27 +481,86 @@ fun MedecinScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    Text(
-                        text = "Histogramme",
-                        style = MaterialTheme.typography.titleMedium
-                    )
+                    // SECTION STATISTIQUES GRAPHIQUES
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        shape = MaterialTheme.shapes.large,
+                        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color(0xFFF8FAFC)
+                        )
+                    ) {
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
 
-                    BarChartView(stats)
+                            // HISTOGRAMME
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                                Icon(
+                                    imageVector = Icons.Default.BarChart,
+                                    contentDescription = null,
+                                    tint = Color(0xFF2563EB)
+                                )
 
-                    Text(
-                        text = "Camembert",
-                        style = MaterialTheme.typography.titleMedium
-                    )
+                                Spacer(modifier = Modifier.width(8.dp))
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                                Text(
+                                    text = "Histogramme des prestations",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = Color(0xFF0F172A)
+                                )
+                            }
 
-                    PieChartView(stats)
+                            Card(
+                                shape = MaterialTheme.shapes.medium,
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Box(modifier = Modifier.padding(12.dp)) {
+                                    BarChartView(stats)
+                                }
+                            }
 
-                    Spacer(modifier = Modifier.height(30.dp))
+                            // CAMEMBERT
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+
+                                Icon(
+                                    imageVector = Icons.Default.PieChart,
+                                    contentDescription = null,
+                                    tint = Color(0xFF10B981)
+                                )
+
+                                Spacer(modifier = Modifier.width(8.dp))
+
+                                Text(
+                                    text = "Répartition des prestations",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = Color(0xFF0F172A)
+                                )
+                            }
+
+                            Card(
+                                shape = MaterialTheme.shapes.medium,
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Box(modifier = Modifier.padding(12.dp)) {
+                                    PieChartView(stats)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
