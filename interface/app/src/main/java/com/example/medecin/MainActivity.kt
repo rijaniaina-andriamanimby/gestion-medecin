@@ -3,6 +3,30 @@ package com.example.medecin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import com.example.medecinapp.ui.MedecinScreen
+
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            MaterialTheme {
+                Surface {
+                    MedecinScreen()
+                }
+            }
+        }
+    }
+}
+
+/*
+*
+* import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -45,31 +69,4 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
-
-/*
-
-package com.example.medecinapp
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import com.example.medecinapp.ui.MedecinScreen
-
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            MaterialTheme {
-                Surface {
-                    MedecinScreen()
-                }
-            }
-        }
-    }
-}
-
- */
+* */

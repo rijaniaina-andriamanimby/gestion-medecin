@@ -1,6 +1,7 @@
 package com.example.medecinapp.api
 
 import com.example.medecinapp.model.Medecin
+import com.example.medecinapp.model.Stats
 import retrofit2.Response
 import retrofit2.http.*
 
