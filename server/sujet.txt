@@ -1,0 +1,6 @@
+Developper une application android ayant acces a une base de donnees distante (postgresql), permetant : 
+- d'ajouter des donnees dans une table medecin (numMed, nom, nombre de jour , taux journalier) 
+- d'afficher les donnees dans une listView (nom, nombre de jour , taux journalier , prestaation ) avec prestaation = nombre de jour * taux journalier
+- de modifier et supprimer un enregistrement a partir du listView
+- d'afficher en bas du tableau la prestaation minimal, maximum et total
+- d'afficher la prestaation max, min, total dans un histogramme en cammenbert
