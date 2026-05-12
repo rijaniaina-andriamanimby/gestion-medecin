@@ -20,80 +20,61 @@ import androidx.core.graphics.toColorInt
 fun BarChartView(stats: Stats) {
 
     AndroidView(
-
         modifier = Modifier
             .fillMaxWidth()
             .height(350.dp),
 
         factory = { context ->
 
-            val chart = BarChart(context)
+            BarChart(context).apply {
+
+                description.isEnabled = false
+                animateY(1000)
+                axisRight.isEnabled = false
+                legend.textSize = 14f
+                setFitBars(true)
+            }
+        },
+
+        update = { chart ->
 
             val entries = listOf(
-
                 BarEntry(0f, stats.min.toFloat()),
                 BarEntry(1f, stats.max.toFloat()),
                 BarEntry(2f, stats.total.toFloat())
             )
 
-            val dataSet = BarDataSet(entries, "Prestations")
+            val dataSet = BarDataSet(entries, "Prestations").apply {
 
-            dataSet.colors = listOf(
-                "#10B981".toColorInt(), // Emerald
-                "#1E3A8A".toColorInt(), // Blue foncé
-                "#B91C1C".toColorInt()  // Red foncé
-            )
+                colors = listOf(
+                    "#10B981".toColorInt(),
+                    "#1E3A8A".toColorInt(),
+                    "#B91C1C".toColorInt()
+                )
 
-            // Taille des valeurs sur les barres
-            dataSet.valueTextSize = 14f
+                valueTextSize = 14f
+            }
 
-            val data = BarData(dataSet)
-
-            // Largeur des barres
-            data.barWidth = 0.5f
+            val data = BarData(dataSet).apply {
+                barWidth = 0.5f
+            }
 
             chart.data = data
 
-            // Désactiver description
-            chart.description.isEnabled = false
+            val labels = listOf("Min", "Max", "Total")
 
-            // Animation
-            chart.animateY(1000)
+            chart.xAxis.apply {
+                valueFormatter = IndexAxisValueFormatter(labels)
+                position = XAxis.XAxisPosition.BOTTOM
+                granularity = 1f
+                setDrawGridLines(false)
+                textSize = 14f
+            }
 
-            // Taille légende
-            chart.legend.textSize = 14f
-
-            // Axe X
-            val labels = listOf(
-                "Min",
-                "Max",
-                "Total"
-            )
-
-            val xAxis = chart.xAxis
-
-            xAxis.valueFormatter =
-                IndexAxisValueFormatter(labels)
-
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-
-            xAxis.granularity = 1f
-
-            xAxis.setDrawGridLines(false)
-
-            xAxis.textSize = 14f
-
-            // Axe gauche
             chart.axisLeft.textSize = 14f
 
-            // Axe droit désactivé
-            chart.axisRight.isEnabled = false
-
-            chart.setFitBars(true)
-
+            chart.notifyDataSetChanged()
             chart.invalidate()
-
-            chart
         }
     )
 }

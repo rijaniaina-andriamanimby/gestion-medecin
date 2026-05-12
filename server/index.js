@@ -21,11 +21,14 @@ app.post('/medecins', async (req, res) => {
 
 // Lire prestation et liste des medecin
 app.get('/medecins/:id', async (req, res) => {
-  const id = req.params.id
-  const result = await pool.query(`
-    SELECT *, (nombre_jour * taux_journalier) AS prestation
-    FROM medecin WHERE numMed = ${id}
-  `);
+  const id = req.params.id;
+
+  const result = await pool.query(
+    `SELECT *, (nombre_jour * taux_journalier) AS prestation
+     FROM medecin WHERE numMed = $1`,
+    [id]
+  );
+
   res.json(result.rows);
 });
 
@@ -61,9 +64,9 @@ app.delete('/medecins/:id', async (req, res) => {
 app.get('/stats', async (req, res) => {
   const result = await pool.query(`
     SELECT 
-      MIN(nombre_jour * taux_journalier) AS min,
-      MAX(nombre_jour * taux_journalier) AS max,
-      SUM(nombre_jour * taux_journalier) AS total
+      COALESCE(MIN(nombre_jour * taux_journalier), 0) AS min,
+      COALESCE(MAX(nombre_jour * taux_journalier), 0) AS max,
+      COALESCE(SUM(nombre_jour * taux_journalier), 0) AS total
     FROM medecin
   `);
 

@@ -18,80 +18,53 @@ import com.github.mikephil.charting.data.PieEntry
 fun PieChartView(stats: Stats) {
 
     AndroidView(
-
         modifier = Modifier
             .fillMaxWidth()
             .height(350.dp),
 
         factory = { context ->
 
-            val chart = PieChart(context)
+            PieChart(context).apply {
 
-            // Données
+                description.isEnabled = false
+                isDrawHoleEnabled = true
+                holeRadius = 45f
+                setCenterTextSize(18f)
+                centerText = "Prestations"
+                animateY(1000)
+                setEntryLabelTextSize(14f)
+                setEntryLabelColor(Color.BLACK)
+                legend.textSize = 14f
+                isRotationEnabled = true
+            }
+        },
+
+        update = { chart ->
+
             val entries = listOf(
-
                 PieEntry(stats.min.toFloat(), "Min"),
                 PieEntry(stats.max.toFloat(), "Max"),
                 PieEntry(stats.total.toFloat(), "Total")
             )
 
-            // Dataset
-            val dataSet = PieDataSet(entries, "Prestations")
+            val dataSet = PieDataSet(entries, "Prestations").apply {
 
-            dataSet.colors = listOf(
-                "#10B981".toColorInt(), // Emerald
-                "#1E3A8A".toColorInt(), // Blue foncé
-                "#B91C1C".toColorInt()  // Red foncé
-            )
+                colors = listOf(
+                    "#10B981".toColorInt(),
+                    "#1E3A8A".toColorInt(),
+                    "#B91C1C".toColorInt()
+                )
 
-            // Espacement entre les parts
-            dataSet.sliceSpace = 3f
+                sliceSpace = 3f
+                selectionShift = 8f
+                valueTextSize = 14f
+                valueTextColor = Color.WHITE
+            }
 
-            // Décalage sélection
-            dataSet.selectionShift = 8f
+            chart.data = PieData(dataSet)
 
-            // Taille texte des valeurs
-            dataSet.valueTextSize = 14f
-
-            // Couleur texte des valeurs
-            dataSet.valueTextColor = Color.WHITE
-
-            // Data
-            val data = PieData(dataSet)
-
-            chart.data = data
-
-            // Désactiver description
-            chart.description.isEnabled = false
-
-            // Texte central
-            chart.centerText = "Prestations"
-
-            chart.setCenterTextSize(18f)
-
-            // Trou central
-            chart.isDrawHoleEnabled = true
-
-            chart.holeRadius = 45f
-
-            // Animation
-            chart.animateY(1000)
-
-            // Taille labels
-            chart.setEntryLabelTextSize(14f)
-
-            // Couleur labels
-            chart.setEntryLabelColor(Color.BLACK)
-
-            // Légende
-            chart.legend.textSize = 14f
-
-            // Rotation tactile
-            chart.isRotationEnabled = true
-
+            chart.notifyDataSetChanged()
             chart.invalidate()
-
-            chart
         }
     )
 }

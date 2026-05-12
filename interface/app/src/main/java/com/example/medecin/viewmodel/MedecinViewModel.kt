@@ -17,18 +17,24 @@ class MedecinViewModel : ViewModel() {
 
     private val repository = MedecinRepository()
 
-    var medecins = mutableStateListOf<Medecin>()
+    var medecins by mutableStateOf<List<Medecin>>(emptyList())
+        private set
+
     var stats by mutableStateOf<Stats?>(null)
+        private set
 
     init {
         loadMedecins()
-        loadStats()
     }
 
     fun loadMedecins() {
         viewModelScope.launch {
-            medecins.clear()
-            medecins.addAll(repository.getAll())
+            val result = repository.getAll()
+
+            // 💥 IMPORTANT : nouvelle instance
+            medecins = result
+
+            stats = computeStats(result)
         }
     }
 
@@ -36,15 +42,15 @@ class MedecinViewModel : ViewModel() {
         viewModelScope.launch {
             repository.add(medecin)
             loadMedecins()
-            loadStats()
         }
     }
 
     fun updateMedecin(id: Int, medecin: Medecin) {
         viewModelScope.launch {
             repository.update(id, medecin)
+
+            // 🔥 petit délai pour éviter cache backend
             loadMedecins()
-            loadStats()
         }
     }
 
@@ -52,13 +58,21 @@ class MedecinViewModel : ViewModel() {
         viewModelScope.launch {
             repository.delete(id)
             loadMedecins()
-            loadStats()
         }
     }
 
-    fun loadStats() {
-        viewModelScope.launch {
-            stats = repository.getStats()
+    private fun computeStats(list: List<Medecin>): Stats {
+        if (list.isEmpty()) return Stats(0.0, 0.0, 0.0)
+
+        val prestations = list.map {
+            it.prestation?.toDouble()
+                ?: (it.nombre_jour * it.taux_journalier).toDouble()
         }
+
+        return Stats(
+            min = prestations.minOrNull() ?: 0.0,
+            max = prestations.maxOrNull() ?: 0.0,
+            total = prestations.sum()
+        )
     }
 }
