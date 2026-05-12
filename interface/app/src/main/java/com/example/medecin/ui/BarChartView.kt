@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import androidx.core.graphics.toColorInt
 
 @Composable
 fun BarChartView(stats: Stats) {
@@ -38,9 +39,9 @@ fun BarChartView(stats: Stats) {
             val dataSet = BarDataSet(entries, "Prestations")
 
             dataSet.colors = listOf(
-                Color.BLUE,
-                Color.RED,
-                Color.GREEN
+                "#10B981".toColorInt(), // Emerald
+                "#1E3A8A".toColorInt(), // Blue foncé
+                "#B91C1C".toColorInt()  // Red foncé
             )
 
             // Taille des valeurs sur les barres

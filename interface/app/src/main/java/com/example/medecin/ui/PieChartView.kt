@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.graphics.toColorInt
 import com.example.medecinapp.model.Stats
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -38,9 +39,9 @@ fun PieChartView(stats: Stats) {
             val dataSet = PieDataSet(entries, "Prestations")
 
             dataSet.colors = listOf(
-                Color.BLUE,
-                Color.RED,
-                Color.GREEN
+                "#10B981".toColorInt(), // Emerald
+                "#1E3A8A".toColorInt(), // Blue foncé
+                "#B91C1C".toColorInt()  // Red foncé
             )
 
             // Espacement entre les parts
