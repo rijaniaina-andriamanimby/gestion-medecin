@@ -6,8 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -106,42 +110,132 @@ fun MedecinScreen(
                 ) {
 
                     Column(
-                        modifier = Modifier.padding(12.dp)
+                        modifier = Modifier.padding(16.dp)
                     ) {
 
-                        Text(
-                            text = "Nom : ${medecin.nom}",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        Text(
-                            text = "Nombre Jour : ${medecin.nombre_jour}"
-                        )
-
-                        Text(
-                            text = "Taux Journalier : ${medecin.taux_journalier}"
-                        )
-
-                        Text(
-                            text = "Prestation : ${medecin.prestation}"
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
+                        // NOM + BADGE
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            modifier = Modifier.fillMaxWidth()
+                            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
                         ) {
 
-                            // Modifier
+                            Icon(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null,
+                                tint = Color(0xFF10B981)
+                            )
+
+                            Spacer(modifier = Modifier.width(10.dp))
+
+                            Column {
+
+                                Text(
+                                    text = medecin.nom,
+                                    style = MaterialTheme.typography.titleLarge,
+                                    color = Color(0xFF0F172A)
+                                )
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+//                                Text(
+//                                    text = "Médecin",
+//                                    color = Color.Gray,
+//                                    style = MaterialTheme.typography.bodySmall
+//                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // INFOS
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFFF1F5F9)
+                            )
+                        ) {
+
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(14.dp)
+                            ) {
+
+                                // NOMBRE DE JOUR
+                                Row(
+                                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                                ) {
+
+                                    Icon(
+                                        imageVector = Icons.Default.DateRange,
+                                        contentDescription = null,
+                                        tint = Color(0xFF2563EB)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(10.dp))
+
+                                    Text(
+                                        text = "Nombre de jours : ${medecin.nombre_jour}",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+
+                                // TAUX JOURNALIER
+                                Row(
+                                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                                ) {
+
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = null,
+                                        tint = Color(0xFFF59E0B)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(10.dp))
+
+                                    Text(
+                                        text = "Taux journalier : ${medecin.taux_journalier} Ar",
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
+
+                                HorizontalDivider()
+
+                                // PRESTATION
+                                Row(
+                                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                                ) {
+
+                                    Icon(
+                                        imageVector = Icons.Default.Info,
+                                        contentDescription = null,
+                                        tint = Color(0xFF10B981)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(10.dp))
+
+                                    Text(
+                                        text = "Prestation : ${medecin.prestation} Ar",
+                                        style = MaterialTheme.typography.titleMedium,
+                                        color = Color(0xFF10B981)
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // BOUTONS
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+
                             Button(
                                 onClick = {
 
                                     selectedMedecin = medecin
                                     showDialog = true
                                 },
+                                modifier = Modifier.weight(1f),
+
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFF2563EB)
                                 )
@@ -149,7 +243,7 @@ fun MedecinScreen(
 
                                 Icon(
                                     imageVector = Icons.Default.Edit,
-                                    contentDescription = "Modifier"
+                                    contentDescription = null
                                 )
 
                                 Spacer(modifier = Modifier.width(6.dp))
@@ -157,7 +251,6 @@ fun MedecinScreen(
                                 Text("Modifier")
                             }
 
-                            // Supprimer
                             Button(
                                 onClick = {
 
@@ -172,6 +265,9 @@ fun MedecinScreen(
                                         ).show()
                                     }
                                 },
+
+                                modifier = Modifier.weight(1f),
+
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFFDC2626)
                                 )
@@ -179,7 +275,7 @@ fun MedecinScreen(
 
                                 Icon(
                                     imageVector = Icons.Default.Delete,
-                                    contentDescription = "Supprimer"
+                                    contentDescription = null
                                 )
 
                                 Spacer(modifier = Modifier.width(6.dp))
