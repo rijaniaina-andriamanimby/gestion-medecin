@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://192.168.186.53:3000/"
+    private const val BASE_URL = "http://10.0.2.2:3000/"
     // 10.0.2.2 = localhost de ton PC depuis l'émulateur Android
     //private const val BASE_URL = "http://192.168.40.2:3000/"
 

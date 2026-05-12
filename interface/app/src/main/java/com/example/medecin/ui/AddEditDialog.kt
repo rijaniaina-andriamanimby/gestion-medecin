@@ -122,7 +122,7 @@ fun AddEditDialog(
                         nummed = medecin?.nummed,
                         nom = nom,
                         nombre_jour = nombreJour.toInt(),
-                        taux_journalier = tauxJournalier.toDouble()
+                        taux_journalier = tauxJournalier.toInt()
                     )
 
                     onConfirm(nouveau)
