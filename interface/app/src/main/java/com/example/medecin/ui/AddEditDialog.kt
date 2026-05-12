@@ -2,7 +2,6 @@ package com.example.medecinapp.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -12,6 +11,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,7 +76,7 @@ fun AddEditDialog(
                     onValueChange = { tauxJournalier = it },
                     label = { Text("Taux journalier") },
                     leadingIcon = {
-                        Icon(Icons.Default.Add, contentDescription = null)
+                        Icon(Icons.Default.Star, contentDescription = null)
                     },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
