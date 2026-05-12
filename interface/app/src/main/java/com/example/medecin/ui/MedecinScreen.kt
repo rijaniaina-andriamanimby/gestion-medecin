@@ -41,6 +41,23 @@ fun MedecinScreen(
             .padding(16.dp)
     ) {
 
+        // HEADER
+        Text(
+            text = "Gestion des Médecins",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color(0xFF0F172A)
+        )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            text = "Administration et statistiques",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Gray
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         // Bouton Ajouter
         Button(
             onClick = {
@@ -75,7 +92,17 @@ fun MedecinScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 6.dp)
+                        .padding(vertical = 8.dp),
+
+                    shape = MaterialTheme.shapes.large,
+
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 6.dp
+                    ),
+
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFF8FAFC)
+                    )
                 ) {
 
                     Column(
@@ -104,7 +131,8 @@ fun MedecinScreen(
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.fillMaxWidth()
                         ) {
 
                             // Modifier
@@ -115,7 +143,7 @@ fun MedecinScreen(
                                     showDialog = true
                                 },
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color.Blue
+                                    containerColor = Color(0xFF2563EB)
                                 )
                             ) {
 
@@ -145,7 +173,7 @@ fun MedecinScreen(
                                     }
                                 },
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color.Red
+                                    containerColor = Color(0xFFDC2626)
                                 )
                             ) {
 
@@ -171,7 +199,19 @@ fun MedecinScreen(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     Card(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+
+                        shape = MaterialTheme.shapes.large,
+
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 6.dp
+                        ),
+
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color(0xFFF8FAFC)
+                        )
                     ) {
 
                         Column(
